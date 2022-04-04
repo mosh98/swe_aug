@@ -13,7 +13,10 @@ def print_hi(name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     augger = eda.Enkel_Data_Augmentation()
-    augger.synonym_replacement("Branden vid oljedepån övre på höjd",1)
-    print_hi('PyCharm')
+    #new_sen = augger.synonym_replacement("Branden vid oljedepån övre på höjd",1)
+    print("Before:", "Branden vid oljedepån övre på höjd")
+    augmented = augger.enkel_augmentation("Branden vid oljedepån övre på höjd",alpha_rd=0.3,num_aug=1)
+
+    print("After:", augmented)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

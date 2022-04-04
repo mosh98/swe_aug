@@ -1,9 +1,13 @@
 import pandas as pd
 import numpy as np
-import spacy_udpipe
-
 import nltk
 import random
+import spacy_udpipe
+import re
+from random import shuffle
+from gensim.models import KeyedVectors
+from gensim.models import Word2Vec
+from gensim.test.utils import datapath
 
 #!pip install spacy-udpipe
 #!pip install nltk
@@ -17,6 +21,9 @@ class Enkel_Data_Augmentation():
         self.nlp = spacy_udpipe.load("sv")
         nltk.download('stopwords')
         self.stop_words_ = set(nltk.corpus.stopwords.words('swedish'))
+
+
+
 
     def find_closet_match(self,test_str, list2check):
      """
@@ -66,7 +73,7 @@ class Enkel_Data_Augmentation():
       try:
 
        find_candidates = df.loc[df[column].str.contains(lemmatized_Word, case=False)]
-       print("candidate size:", find_candidates.shape)
+       #print("candidate size:", find_candidates.shape)
 
       except:
 
@@ -113,7 +120,6 @@ class Enkel_Data_Augmentation():
        candidate = num_free_candidate
 
      return candidate
-
 
     def synonym_replacement(self,words, n, word_vec=False):
         """
@@ -169,6 +175,61 @@ class Enkel_Data_Augmentation():
 
         return None
 
+    def synonym_replacement_vanilla(self,words, n):
+        new_words = words.copy()
+        random_word_list = list(set([word for word in words if word not in self.stop_words_]))
+        random.shuffle(random_word_list)
+        num_replaced = 0
+
+        for random_word in random_word_list:
+            synonym = self.synonyms_cadidates(random_word, self.df)
+            if synonym is not False:
+                new_words = [synonym if word == random_word else word for word in new_words]
+                # what does that mean?
+                # for all the words in the new_words(orignial list of sentence words)
+                # if the word is equal to the random word, replace it with the synonyn
+                # else, keep the word as it is
+                num_replaced += 1
+            if num_replaced >= n:
+                break
+
+        # this is stupid but we need it, trust me
+        sentence = ' '.join(new_words)
+        new_words = sentence.split(" ")
+
+        return new_words
+
+
+
+        return new_words
+
+    def random_deletion(self, words, p):
+        """
+        Randomly delete words from a sentence with probability p
+        :param words:
+        :param p:
+        :return:
+        """
+        #obviously, if there's only one word, don't delete it
+        if len(words) == 1:
+            return words
+
+        #randomly delete words with probability p
+        new_words = []
+
+        for word in words:
+            r = random.uniform(0, 1) # random number between 0.0 and 1.0
+            if r > p: #kinda elegant when you think about it
+                new_words.append(word)
+
+        #if you end up deleting all words, just return a random word
+        if len(new_words) == 0:
+            rand_int = random.randint(0, len(words)-1)
+            return [words[rand_int]]
+
+        return new_words
+
+
     def enkel_augmentation(self, sentence, alpha_sr=0.1, alpha_ri=0.1, alpha_rs=0.1, alpha_rd=0.1, num_aug=9):
 
         """
@@ -180,10 +241,40 @@ class Enkel_Data_Augmentation():
         @param num_aug how many augmented sentences to create
 
         inspired from : https://github.com/jasonwei20/eda_nlp/blob/04ab29c5b18d2d72f9fa5b304322aaf4793acea0/code/eda.py#L33
+y
 
         @return list of augmented sentences
         """
-        words = sentence.split(' ')  # list of words in the sentence
-        words = [word for word in words if word is not '']  # remove empty words
-        num_words = len(words)  # number of words in the sentence
+        words_list = sentence.split(' ')  # list of words in the sentence
+        words = [word for word in words_list if word is not '']  # remove empty words
+        num_words = len(words_list)  # number of words in the sentence
+
+        augmented_sentences = []
+        num_new_per_technique = int(num_aug / 4) + 1 # number of augmented sentences per technique
+
+        #sr
+        if (alpha_sr > 0):
+                n_sr = max(1, int(alpha_sr * num_words)) # number of words to be replaced per technique
+                print("Number of words to be replaced per technique: ", n_sr)
+                for _ in range(num_new_per_technique):
+                    a_words = self.synonym_replacement_vanilla(words, n_sr)
+                    augmented_sentences.append(' '.join(a_words))
+
+
+
+
+        #Random Deletion
+        if (alpha_rd > 0):
+            for _ in range(num_new_per_technique):
+                a_words = self.random_deletion(words, alpha_rd)
+                print(a_words)
+                augmented_sentences.append(' '.join(a_words))
+
+
+
+
+
+
+        return augmented_sentences
+
 
