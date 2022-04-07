@@ -229,6 +229,36 @@ class Enkel_Data_Augmentation():
 
         return new_words
 
+    #def random_insertion(self, words, p):
+    def random_insertion(self, words, n):
+        """
+        Randomly insert words into a sentence with probability p
+        :param words:
+        :param p:
+        :return:
+        """
+        new_words = words.copy()
+        for _ in range(n):
+                self.add_word(new_words)
+
+        return new_words
+
+    def add_word(self, new_words):
+        synonyms = []
+        counter = 0
+
+        while len(synonyms) <1:
+            random_word = new_words[random.randint(0, len(new_words)-1)]
+            synonyms = self.synonyms_cadidates(random_word, self.df)
+            counter += 1
+            if counter > 10:
+                return
+
+        random_synonym = synonyms[0]
+        random_idx = random.randint(0, len(new_words)-1)
+        new_words.insert(random_idx, random_synonym)
+
+
 
     def enkel_augmentation(self, sentence, alpha_sr=0.1, alpha_ri=0.1, alpha_rs=0.1, alpha_rd=0.1, num_aug=9):
 
@@ -252,7 +282,7 @@ y
         augmented_sentences = []
         num_new_per_technique = int(num_aug / 4) + 1 # number of augmented sentences per technique
 
-        #sr
+        #synonmym replacement
         if (alpha_sr > 0):
                 n_sr = max(1, int(alpha_sr * num_words)) # number of words to be replaced per technique
                 print("Number of words to be replaced per technique: ", n_sr)
@@ -260,7 +290,12 @@ y
                     a_words = self.synonym_replacement_vanilla(words, n_sr)
                     augmented_sentences.append(' '.join(a_words))
 
-
+        #random insertion
+        if (alpha_ri > 0):
+            n_ri = max(1,int(alpha_ri * num_words))
+            for _ in range(num_new_per_technique):
+                a_words = self.random_insertion(words, n_ri)
+                augmented_sentences.append(' '.join(a_words))
 
 
         #Random Deletion
