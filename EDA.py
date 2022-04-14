@@ -311,7 +311,7 @@ y
                 n_sr = max(1, int(alpha_sr * num_words)) # number of words to be replaced per technique
                 print("Number of words to be replaced per technique: ", n_sr)
                 for _ in range(num_new_per_technique):
-                    a_words = self.synonym_replacement_vanilla(words, n_sr)
+                    a_words = self.synonym_replacement(words, n_sr)
                     augmented_sentences.append(' '.join(a_words))
 
         #random insertion

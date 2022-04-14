@@ -14,8 +14,8 @@ def print_hi(name):
 if __name__ == '__main__':
     augger = eda.Enkel_Data_Augmentation()
     #new_sen = augger.synonym_replacement("Branden vid oljedepån övre på höjd",1)
-    print("Before:", "Branden vid oljedepån övre på höjd")
-    augmented = augger.enkel_augmentation("Branden vid oljedepån övre på höjd",alpha_rd=0.3,num_aug=1)
+    print("Before:", "Killen planerade att resa till Kurdistan med sin pappa och med sina små syskon på sommarlovet när han var 19 år gammal .")
+    augmented = augger.enkel_augmentation("Killen planerade att resa till Kurdistan med sin pappa och med sina små syskon på sommarlovet när han var 19 år gammal .",alpha_sr=0.3,alpha_ri=0.0, alpha_rs=0.0, alpha_rd=0.0, num_aug=4)
 
     print("After:", augmented)
 
