@@ -293,7 +293,8 @@ class Enkel_Data_Augmentation():
 
         while len(synonyms) <1:
             random_word = new_words[random.randint(0, len(new_words)-1)]
-            synonyms = self.synonyms_cadidates(random_word, self.df)
+            #synonyms = self.synonyms_cadidates(random_word, self.df)
+            synonyms = self.get_synonyms_vec(random_word)
             counter += 1
             if counter > 10:
                 return
