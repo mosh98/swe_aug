@@ -8,13 +8,16 @@ from random import shuffle
 from gensim.models import KeyedVectors
 from gensim.models import Word2Vec
 from gensim.test.utils import datapath
+import os
 
 #!pip install spacy-udpipe
 #!pip install nltk
 
 class Enkel_Data_Augmentation():
     def __init__(self):
-        self.df = pd.read_csv('synonyms.csv')
+        directory = os.getcwd()
+        #synonyms.csv
+        self.df = pd.read_csv(directory+'/swe_aug/synonyms.csv')
         self.df = self.df.rename(columns={'Synonym_4': 'Acutal_word'})
         self.df.drop('Unnamed: 0', axis=1, inplace=True)
         spacy_udpipe.download("sv")
