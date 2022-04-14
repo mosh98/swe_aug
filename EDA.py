@@ -351,7 +351,7 @@ y
         #synonmym replacement
         if (alpha_sr > 0):
                 n_sr = max(1, int(alpha_sr * num_words)) # number of words to be replaced per technique
-                print("Number of words to be replaced per technique: ", n_sr)
+                #print("Number of words to be replaced per technique: ", n_sr)
                 for _ in range(num_new_per_technique):
                     a_words = self.synonym_replacement_vec(words, n_sr)
                     augmented_sentences.append(' '.join(a_words))
@@ -368,7 +368,7 @@ y
         if (alpha_rd > 0):
             for _ in range(num_new_per_technique):
                 a_words = self.random_deletion(words, alpha_rd)
-                print(a_words)
+                #print(a_words)
                 augmented_sentences.append(' '.join(a_words))
 
         #Random Swap

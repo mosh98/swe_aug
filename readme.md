@@ -9,8 +9,10 @@ A way to augment data in a way that is easy to understand and use. There are 4 m
 3. Random Word Deletion
 4. Random Word Insertion
 
+``!git clone https://github.com/mosh98/swe_aug.git``
 
 This is built on top of a swedish word2vec. Make sure you download that first.
+
 
 ````python
 !wget https://www.ida.liu.se/divisions/hcs/nlplab/swectors/swectors-300dim.txt.bz2
