@@ -10,11 +10,13 @@ from gensim.models import Word2Vec
 from gensim.test.utils import datapath
 import os
 
+
 #!pip install spacy-udpipe
 #!pip install nltk
+# pip install gensim
 
 class Enkel_Data_Augmentation():
-    def __init__(self):
+    def __init__(self,word_vec_path):
         directory = os.getcwd()
         #synonyms.csv
         self.df = pd.read_csv(directory+'/swe_aug/synonyms.csv')
@@ -24,6 +26,7 @@ class Enkel_Data_Augmentation():
         self.nlp = spacy_udpipe.load("sv")
         nltk.download('stopwords')
         self.stop_words_ = set(nltk.corpus.stopwords.words('swedish'))
+        self.wv_from_text = KeyedVectors.load_word2vec_format(datapath(word_vec_path), binary=False) #link need to be fixed
 
 
 
@@ -205,6 +208,44 @@ class Enkel_Data_Augmentation():
 
 
         return new_words
+#
+    def synonym_replacement_vec(self,words, n):
+        new_words = words.copy()
+        random_word_list = list(set([word for word in words if word not in self.stop_words_]))
+        random.shuffle(random_word_list)
+        num_replaced = 0
+        for random_word in random_word_list:
+            synonyms = self.get_synonyms_vec(random_word)
+            if len(synonyms) >= 1:
+                synonym = random.choice(list(synonyms))
+                new_words = [synonym if word == random_word else word for word in new_words]
+                # print("replaced", random_word, "with", synonym)
+                num_replaced += 1
+            if num_replaced >= n:  # only replace up to n words
+                break
+
+        # this is stupid but we need it, trust me
+        sentence = ' '.join(new_words)
+        new_words = sentence.split(' ')
+        return new_words
+
+    def get_synonyms_vec(self,word):
+        synonyms = set()
+        flag = False
+        vec = None
+        try:
+            vec = self.wv_from_text.similar_by_word(word)
+        except KeyError:
+            flag = True
+            pass
+
+        if flag is False:
+            synonyms.add(vec[0][0])
+
+        if word in synonyms:
+            synonyms.remove(word)
+
+        return synonyms
 
     def random_deletion(self, words, p):
         """
@@ -311,7 +352,7 @@ y
                 n_sr = max(1, int(alpha_sr * num_words)) # number of words to be replaced per technique
                 print("Number of words to be replaced per technique: ", n_sr)
                 for _ in range(num_new_per_technique):
-                    a_words = self.synonym_replacement(words, n_sr)
+                    a_words = self.synonym_replacement_vec(words, n_sr)
                     augmented_sentences.append(' '.join(a_words))
 
         #random insertion
