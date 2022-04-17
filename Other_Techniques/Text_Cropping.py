@@ -10,6 +10,8 @@ class cropper():
 
         framented = []
         words = sentence.split(" ")
+        if len(words) <= 7:
+            return [sentence]
         sen_length = len(words)
         chunk_length = math.ceil(sen_length * self.percentage)
 
