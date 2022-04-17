@@ -1,8 +1,8 @@
 import math
 
 class cropper():
-    def __init__(self):
-        self.percentage = 0.25
+    def __init__(self, percent = 0.25):
+        self.percentage = percent
         pass
     #https://colab.research.google.com/drive/1oQkPlCREnhiAz0zTifgVi0YWcE6hIzi6#scrollTo=EFMPJVBTNJNh
 
