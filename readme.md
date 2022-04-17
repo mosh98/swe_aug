@@ -34,9 +34,9 @@ aug = EDA.Enkel_Data_Augmentation(word_vec_path)
 
 txt = "Killen planerade att resa till Kurdistan med sin pappa och sin mamma. "
 ```
+____________________________________________________________________
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/118UDmQzHtO3UmO0HroL4nthNG4Qea-k8#scrollTo=r8S2nkpezfI5)
-##### EDA
+### EDA [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/118UDmQzHtO3UmO0HroL4nthNG4Qea-k8?usp=sharing)
 ````python
 
 augmented_sentences = aug.enkel_augmentation(txt, alpha_sr=0.1, 
@@ -45,7 +45,7 @@ augmented_sentences = aug.enkel_augmentation(txt, alpha_sr=0.1,
 #returns a list of augmented sentences
 ````
 
-##### Text Fragmenter
+### Text Fragmenter ![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)
 ```python
 from swe_aug.Other_Techniques import Text_Cropping
 
@@ -53,6 +53,7 @@ frag = Text_Cropping.cropper(percent = 0.25)
 list_of_fragmented_sentence = frag.text_fragmeter(txt)
 # chops sentence into 4 halfs.
 ```
+
 
 Thats it buddy!
 
