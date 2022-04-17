@@ -35,6 +35,7 @@ aug = EDA.Enkel_Data_Augmentation(word_vec_path)
 txt = "Killen planerade att resa till Kurdistan med sin pappa och sin mamma. "
 ```
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/118UDmQzHtO3UmO0HroL4nthNG4Qea-k8#scrollTo=r8S2nkpezfI5)
 ##### EDA
 ````python
 
@@ -55,9 +56,11 @@ list_of_fragmented_sentence = frag.text_fragmeter(txt)
 
 Thats it buddy!
 
+More Comming!
+
 #### References
 [1] Swedish word2vec: https://www.ida.liu.se/divisions/hcs/nlplab/swectors/
 
 [2] EDA: https://aclanthology.org/D19-1670/
 
-[3] Text Fragmenter: That was me dawg
+[3] Text Fragmenter: That was me
