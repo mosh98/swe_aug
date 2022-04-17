@@ -57,5 +57,7 @@ Thats it buddy!
 
 #### References
 [1] Swedish word2vec: https://www.ida.liu.se/divisions/hcs/nlplab/swectors/
+
 [2] EDA: https://aclanthology.org/D19-1670/
+
 [3] Text Fragmenter: That was me dawg
