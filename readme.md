@@ -1,8 +1,12 @@
-# EDA: Easy Data Augmentation in Swedish
-## or Enkel Data Augmentation
+# Swedish Augmentation Package
+
+Includes many different Augmentation packages for Swedish.
 
 
-## What is EDA?
+
+----------------------------------------------------
+### EDA: Easy Data Augmentation in Swedish
+### What is EDA?
 A way to augment data in a way that is easy to understand and use. There are 4 mains components
 1. Random Synomym Replacement
 2. Random Word Replacement
@@ -27,16 +31,20 @@ word_vec_path = '/content/swectors-300dim.txt' #path to txt vector file
 ````
 
 ### Step 3
-#### Import your desired augmentations:
+#### Import EDA:
+
+____________________________________________________________________
+
+### EDA [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/118UDmQzHtO3UmO0HroL4nthNG4Qea-k8?usp=sharing)
+
+
 ```python
 from swe_aug import EDA
 aug = EDA.Enkel_Data_Augmentation(word_vec_path)
 
 txt = "Killen planerade att resa till Kurdistan med sin pappa och sin mamma. "
 ```
-____________________________________________________________________
 
-### EDA [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/118UDmQzHtO3UmO0HroL4nthNG4Qea-k8?usp=sharing)
 ````python
 
 augmented_sentences = aug.enkel_augmentation(txt, alpha_sr=0.1, 
@@ -44,8 +52,11 @@ augmented_sentences = aug.enkel_augmentation(txt, alpha_sr=0.1,
                                              alpha_rd=0.1, num_aug=4)
 #returns a list of augmented sentences
 ````
+___________________________________________________________________________
 
-### Text Fragmenter ![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)
+
+
+#Text Fragmenter ![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)
 ```python
 from swe_aug.Other_Techniques import Text_Cropping
 
