@@ -11,13 +11,15 @@ class cropper():
         framented = []
         words = sentence.split(" ")
         sen_length = len(words)
-        chunk_length = sen_length * self.percentage
+        chunk_length = math.ceil(sen_length * self.percentage)
 
         for i in range(0, sen_length, chunk_length):
-            #print(words[i:i + n])
-            framented.append(words[i:i + chunk_length])
+            framented.append(" ".join( words[i:i + chunk_length]  ) )
 
         return framented
+
+
+            
 
 
 
