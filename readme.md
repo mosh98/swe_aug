@@ -5,13 +5,6 @@ Includes many different Augmentation packages for Swedish.
 
 
 ----------------------------------------------------
-### EDA: Easy Data Augmentation in Swedish
-### What is EDA?
-A way to augment data in a way that is easy to understand and use. There are 4 mains components
-1. Random Synomym Replacement
-2. Random Word Replacement
-3. Random Word Deletion
-4. Random Word Insertion
 
 ### Step 1
 ``!git clone https://github.com/mosh98/swe_aug.git``
@@ -30,19 +23,28 @@ word_vec_path = '/content/swectors-300dim.txt' #path to txt vector file
 #you can even set path to your own pretrain word2vec (make sure its a txt file)
 ````
 
-### Step 3
-#### Import EDA:
+
+#### Then Use your desired augmentation package
+
 
 ____________________________________________________________________
 
 ### EDA [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/118UDmQzHtO3UmO0HroL4nthNG4Qea-k8?usp=sharing)
+
+### EDA: Easy Data Augmentation in Swedish
+### What is EDA? [2]
+A way to augment data in a way that is easy to understand and use. There are 4 mains components
+1. Random Synomym Replacement
+2. Random Word Replacement
+3. Random Word Deletion
+4. Random Word Insertion
 
 
 ```python
 from swe_aug import EDA
 aug = EDA.Enkel_Data_Augmentation(word_vec_path)
 
-txt = "Killen planerade att resa till Kurdistan med sin pappa och sin mamma. "
+txt = "enter ur desired text. It can be a sentence or a paragraph"
 ```
 
 ````python
@@ -52,6 +54,7 @@ augmented_sentences = aug.enkel_augmentation(txt, alpha_sr=0.1,
                                              alpha_rd=0.1, num_aug=4)
 #returns a list of augmented sentences
 ````
+
 ___________________________________________________________________________
 
 
