@@ -35,21 +35,21 @@ class type_DA():
 
         return pos_list
 
-    def synonym_replacement_vec_type(words, n_sr, typ):
+    def synonym_replacement_vec_type(self,words, n_sr, typ):
         new_words = words.copy()
-        random_word_list = list(set([word for word in words if word not in stop_words_]))
+        random_word_list = list(set([word for word in words if word not in self.stop_words_]))
         random.shuffle(random_word_list)
 
         num_replaced = 0
         for random_word in random_word_list:
-            synonyms = get_synonyms_vec(random_word)  # self
+            synonyms = self.get_synonyms_vec(random_word)  # self
             if len(synonyms) >= 1:
                 synonym = random.choice(list(synonyms))
-                type_is = get_type(synonym)
+                type_is = self.get_type(synonym)
 
                 if type_is[0] == typ:
                     print("Word Type:", type_is[0])
-                    new_words = [synonym if word == random_word else word for word in new_words]
+                    new_words = [synonym if word.lower()  == random_word else word for word in new_words]
                     num_replaced += 1
                 else:
                     continue

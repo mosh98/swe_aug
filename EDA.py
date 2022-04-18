@@ -167,7 +167,7 @@ class Enkel_Data_Augmentation():
             synonyms = self.get_synonyms_vec(random_word)
             if len(synonyms) >= 1:
                 synonym = random.choice(list(synonyms))
-                new_words = [synonym if word == random_word else word for word in new_words]
+                new_words = [synonym if word.lower() == random_word else word for word in new_words]
                 # print("replaced", random_word, "with", synonym)
                 num_replaced += 1
             if num_replaced >= n:  # only replace up to n words
