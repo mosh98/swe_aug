@@ -56,7 +56,7 @@ ___________________________________________________________________________
 
 
 
-#Text Fragmenter ![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)
+# Text Fragmenter ![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)
 ```python
 from swe_aug.Other_Techniques import Text_Cropping
 
@@ -68,7 +68,8 @@ list_of_fragmented_sentence = frag.text_fragmeter(txt)
 
 Thats it buddy!
 
-More Comming!
+
+##  Revamped Synonym replacement is coming soon!
 
 #### References
 [1] Swedish word2vec: https://www.ida.liu.se/divisions/hcs/nlplab/swectors/

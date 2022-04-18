@@ -15,6 +15,9 @@ import os
 #!pip install nltk
 # pip install gensim
 
+#TODO: Remove old synonym mechanism
+
+
 class Enkel_Data_Augmentation():
     def __init__(self,word_vec_path):
         directory = os.getcwd()
@@ -127,60 +130,6 @@ class Enkel_Data_Augmentation():
 
      return candidate
 
-    def synonym_replacement(self,words, n, word_vec=False):
-        """
-        Function that replaces words with synonyms.
-        :param words:
-        :param n: number of synonyms to be replaced in a sentence
-        :param word_vec: if True, Word2Vec model is used to replace words with synonyms.
-        :return: String with replaced words. or [ False ] if no synonyms are found.
-        if no synonym is found, the original sentence is returned.
-        """
-        word_pair_replacement = []  # list of tuples (prev_word, suggested_word)
-
-        # Word has to be a string
-        kk = words.split(" ")  # sentence
-
-        # Filter using stopwords (nltk stopwords)
-        filtered_word_list = list(set([word for word in kk if word not in self.stop_words_]))
-        print(filtered_word_list)
-
-        # choose words at random
-        len_list = len(filtered_word_list)
-        chosen_words = random.sample(filtered_word_list, n)
-
-        # choose words at random
-        len_list = len(filtered_word_list)
-        chosen_words = random.sample(filtered_word_list, n)
-
-        for cw in chosen_words:  # For all the chosen words, find replacements
-
-         idx = chosen_words.index(cw)
-
-         syn = self.synonyms_cadidates(cw, self.df)
-
-         if syn is False:
-          continue
-         else:
-          word_pair_replacement.append((idx, cw, syn))
-
-        if len(word_pair_replacement) == 0:
-         print("No synonym found for any words")
-         return False
-
-        for item in word_pair_replacement:
-            idx = item[0]
-            curr = item[1]
-            synon = item[2]
-
-            kk[idx] = synon
-
-        listToStr = ' '.join([str(elem) for elem in kk])
-
-        return listToStr
-
-        return None
-
     def synonym_replacement_vanilla(self,words, n):
         new_words = words.copy()
         random_word_list = list(set([word for word in words if word not in self.stop_words_]))
@@ -234,7 +183,7 @@ class Enkel_Data_Augmentation():
         flag = False
         vec = None
         try:
-            vec = self.wv_from_text.similar_by_word(word)
+            vec = self.wv_from_text.similar_by_word(word.lower())
         except KeyError:
             flag = True
             pass
