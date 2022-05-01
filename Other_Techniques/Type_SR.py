@@ -84,10 +84,23 @@ class type_DA():
         """
         Returns the POS type of the text.
         :param text:
-        :param token_type:
-        :param n:
+        :param token_type: if no type is given, a random type is chosen
+        :param n: number of sentences you want as output
         :return:
         """
 
+        if token_type not in ["NOUN", "VERB", "ADJ", "ADV", "PROPN","CONJ"]:
+            token_type = None
+        sentences = []
+        words = text.split(' ')
+        for i in range(n):
+            if token_type is None:
+                token_type = random.choice(['ADJ', 'VERB', 'NOUN', 'ADV'])
+                sen = self.synonym_replacement_vec_type(words, n, token_type)
+                sentences.append(sen)
+            else:
+                sen = self.synonym_replacement_vec_type(words, n, token_type)
+                sentences.append(sen)
 
-        return None
+
+        return sentences
