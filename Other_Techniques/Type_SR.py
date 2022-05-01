@@ -48,7 +48,7 @@ class type_DA():
                 type_is = self.get_type(synonym)
 
                 if type_is[0] == typ:
-                    print("Word Type:", type_is[0])
+
                     new_words = [synonym if word.lower()  == random_word else word for word in new_words]
                     num_replaced += 1
                 else:
