@@ -1,10 +1,11 @@
-# Swedish Augmentation Package
+# Swedish Augmentation Packages
 
 Includes many different Augmentation packages for Swedish.
 
 
 
 ----------------------------------------------------
+## How do i setup?
 
 ### Step 1
 ``!git clone https://github.com/mosh98/swe_aug.git``
@@ -69,10 +70,22 @@ list_of_fragmented_sentence = frag.text_fragmeter(txt)
 ```
 
 
-Thats it buddy!
 
 
-##  Revamped Synonym replacement is coming soon!
+##  Type Specific Similar word Replacement ![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)
+Idea is to replace word that are similar in an embeddings space that has the same POS token. [4]
+````python
+# "NOUN", "VERB", "ADJ", "ADV", "PROPN","CONJ"
+#These are the tokens you can perturb! [CASE SENSITIVE!]
+
+from swe_aug.Other_Techniques import Type_SR
+aug = Type_SR.type_DA(word_vec_path)
+
+list_of_augs = aug.type_synonym_sr(txt, token_type = "NOUN", n = 2)
+
+
+
+````
 
 #### References
 [1] Swedish word2vec: https://www.ida.liu.se/divisions/hcs/nlplab/swectors/
@@ -80,3 +93,17 @@ Thats it buddy!
 [2] EDA: https://aclanthology.org/D19-1670/
 
 [3] Text Fragmenter: That was me
+
+[4] Type Specific: That was me too
+
+### Cite?
+````
+@software{Mahamud2022,
+  author = {Mahamud,Mosleh},
+  title = {Swedish Augmentation Packages},
+  year = {2022},
+  publisher = {GitHub},
+  journal = {Not Decided yet},
+  howpublished = {\url{https://github.com/mosh98/swe_aug}},
+}
+````
